@@ -13,7 +13,8 @@
 let keywords = ["Покупка автомобиля ", "Автомобиль с пробегом", "Мотоцикл купить"];
 let keyword = keywords[getRandom(0, keywords.length - 1)];
 
-let btnK = document.querySelector(.'button.mini-suggest__button.button_theme_search.button_size_search.i-bem.button_js_inited');
+let btnK = document.querySelector('.button.mini-suggest__button.button_theme_search.button_size_search.i-bem.button_js_inited');
+let links = document.links;
 
 if(btnK) {
 document.getElementsByName("text")[0].value = keyword;
