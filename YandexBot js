@@ -1,0 +1,35 @@
+// ==UserScript==
+// @name        YandexBot
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  try to take over the world!
+// @author     Bogolyubova Julia
+// @match        https://yandex.ru/
+// @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
+// @grant        none
+// ==/UserScript==
+
+
+let keywords = ["Покупка автомобиля ", "Автомобиль с пробегом", "Мотоцикл купить"];
+let keyword = keywords[getRandom(0, keywords.length - 1)];
+
+let btnK = document.querySelector(.'button.mini-suggest__button.button_theme_search.button_size_search.i-bem.button_js_inited');
+
+if(btnK) {
+document.getElementsByName("text")[0].value = keyword;
+
+btnK.click();
+} else {
+for (let i = 0; i < links.length; i++) {
+if (links.length && links[i].href.indexOf("auto.ru") !== -1) {
+let link = links[i];
+console.log("Нашел строку " + links[i]);
+link.click();
+break;
+}
+}
+}
+
+function getRandom(min, max) {
+return Math.floor(Math.random() * (max - min + 1) + min);
+}
