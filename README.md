@@ -1,1 +1,1 @@
-  YandexBot
+AVTR
