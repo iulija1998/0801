@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<script src="https://kit.fontawesome.com/dc4f8560f3.js" crossorigin="anonymous"></script>
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+			integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+			crossorigin="anonymous"
+		/>
+		<title>Форма регистрации</title>
+		<style>
+			body {
+				margin: 0;
+				padding: 0;
+				background-color: hsl(30, 1%, 38%);
+			}
+			form {
+				background-color: white;
+				padding: 2rem;
+				border-radius: 6px;
+				filter: drop-shadow(1px 2px 4px hsl(56, 38%, 58%));
+				transform: translateY(0px);
+			}
+			form:focus-within {
+				transform: translateY(-4px);
+				filter: drop-shadow(2px 4px 16px hsl(56, 38%, 58%));
+			}
+			/*Для тех, кто не любит анимацию */
+			/* @media (prefers-reduced-motion: no-preference) {
+        form {
+          transition: filter 300ms, transform 300ms;
+          will-change: transform;
+        }
+      } */
+			.fa-solid {
+				color: #dc3545;
+			}
+			span > i {
+				cursor: pointer;
+			}
+			span > i:hover {
+				color: gold;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<h1 class="my-5 text-center text-danger">Регистрация на сайте</h1>
+			<div class="col-md-5 mx-auto">
+				<form onsubmit="sendForm(this); return false;">
+					<div class="input-group mb-2">
+						<div class="input-group-prepend">
+							<div class="input-group-text">
+								<i class="fa-solid fa-user-astronaut fa-lg fa-fw"></i>
+							</div>
+						</div>
+						<input type="text" class="form-control" placeholder="Имя" required name="name" />
+					</div>
+					<div class="input-group mb-2">
+						<div class="input-group-prepend">
+							<div class="input-group-text">
+								<i class="fa-solid fa-user-astronaut fa-lg fa-fw"></i>
+							</div>
+						</div>
+						<input
+							type="text"
+							class="form-control"
+							placeholder="Фамилия"
+							required
+							name="lastname"
+						/>
+					</div>
+					<div class="input-group mb-2">
+						<div class="input-group-prepend">
+							<div class="input-group-text"><i class="fa-solid fa-envelope fa-lg fa-fw"></i></div>
+						</div>
+						<input type="email" class="form-control" placeholder="E-mail" required name="email" />
+					</div>
+					<p id="info"></p>
+					<div class="input-group mb-2">
+						<div class="input-group-prepend">
+							<div class="input-group-text"><i class="fa-solid fa-lock fa-lg fa-fw"></i></div>
+						</div>
+						<input
+							type="password"
+							class="form-control"
+							placeholder="Пароль"
+							required
+							id="formPass"
+							name="pass"
+						/>
+						<span
+							onmousedown="formPass.type ='text'; this.nextElementSibling.hidden = false; this.hidden = true;"
+							>&nbsp;<i class="fa-solid fa-eye fa-lg"></i
+						></span>
+						<span
+							hidden
+							onmouseup="formPass.type = 'password'; this.previousElementSibling.hidden = false; this.hidden = true;"
+							>&nbsp;<i class="fa-solid fa-eye-slash fa-lg"></i
+						></span>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox" id="autoSizingCheck2" required />
+						<label class="form-check-label" for="autoSizingCheck2">
+							Даю согласие на обработку персональных данных
+						</label>
+					</div>
+					<input type="submit" class="btn btn-danger form-control" value="Зарегистрироваться" />
+				</form>
+			</div>
+		</div>
+		<script>
+			async function sendForm(form) {
+				//e.preventDefault();
+				let response = await fetch("php/reg_obr.php", {
+					method: "POST",
+					body: new FormData(form),
+				});
+				let result = await response.text();
+				if (result == "ok") {
+					alert("Вы успешно зарегистрированы!");
+				} else {
+					info.innerHTML = "Такой пользователь уже существует!";
+				}
+			}
+		</script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+			integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+			crossorigin="anonymous"
+		></script>
+	</body>
+</html>
